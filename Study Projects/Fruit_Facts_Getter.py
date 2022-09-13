@@ -6,10 +6,8 @@ FRUIT FACTS PROGRAM
 """
 
 """
-This program will have three functions:
-    !. Return the scientific name of an inputted fruit
-    2. Return the fruit with the highest/lowest or an inputted column
-    3. Interactive Visualizations
+This program will:
+    Return the scientific name of an inputted fruit.
 """
 #importing packages
 import requests
@@ -25,7 +23,6 @@ df = pd.DataFrame(results)
 fv_df = pd.json_normalize(results)
 
 #Give a fruit, get the scientific name function
-
 a = 'Lychee'
 
 def sci_name_getter(a):
