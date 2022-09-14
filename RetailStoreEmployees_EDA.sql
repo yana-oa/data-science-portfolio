@@ -82,3 +82,23 @@ SELECT SUM(CASE WHEN salary < 100000 THEN 1 ELSE 0 END) as under_paid,
 	SUM(CASE WHEN salary > 100000 AND salary < 160000 THEN 1 ELSE 0 END) as paid_well,
 	SUM(CASE WHEN salary > 160000 THEN 1 ELSE 0 END) as executive
 FROM employees
+
+--Return a table with the highest and lowest paid employee in each department
+
+SELECT department, first_name, salary,
+CASE
+	WHEN a.salary = a.max_by_department THEN 'HIGHEST PAID'
+	ELSE 'LOWEST PAID' END as pay_range
+	FROM(
+		SELECT department, first_name, salary, max_by_department, min_by_department FROM(
+			SELECT department, first_name, salary,
+				(SELECT MAX(salary)
+				FROM employees e2
+				WHERE e1.department = e2.department) as max_by_department,
+				(SELECT MIN(salary)
+				FROM employees e2
+				WHERE e1.department = e2.department) as min_by_department
+			FROM employees e1
+			ORDER BY department) as sol
+			WHERE salary = max_by_department OR salary = min_by_department)as a
+
