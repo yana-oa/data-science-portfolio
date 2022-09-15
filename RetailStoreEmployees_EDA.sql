@@ -101,4 +101,12 @@ CASE
 			FROM employees e1
 			ORDER BY department) as sol
 			WHERE salary = max_by_department OR salary = min_by_department)as a
+			
+--write a query that returns employees whose salary is above average for their given department
+SELECT first_name
+FROM employees outer_emp
+WHERE salary > (
+     SELECT AVG(salary)
+     FROM employees
+     WHERE department = outer_emp.department);
 
